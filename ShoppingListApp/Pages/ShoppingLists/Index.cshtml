@@ -1,0 +1,65 @@
+﻿@page 
+@model ShoppingListApp.Pages.ShoppingLists.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<form>
+    <p>
+        <select asp-for="SearchShop" asp-items="Model.ShopNames">
+            <option value="">All</option>
+        </select>
+        Item Name: <input type="text" asp-for="SearchItem" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ShoppingList[0].ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShoppingList[0].ItemQuantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShoppingList[0].ShopName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShoppingList[0].DueDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ShoppingList) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShopName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

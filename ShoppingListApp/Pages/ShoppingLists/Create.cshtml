@@ -1,0 +1,50 @@
+﻿@page
+@model ShoppingListApp.Pages.ShoppingLists.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ShoppingList</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ShoppingList.ItemName" class="control-label"></label>
+                <input asp-for="ShoppingList.ItemName" class="form-control" />
+                <span asp-validation-for="ShoppingList.ItemName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShoppingList.ItemQuantity" class="control-label"></label>
+                <input asp-for="ShoppingList.ItemQuantity" class="form-control" />
+                <span asp-validation-for="ShoppingList.ItemQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShoppingList.ShopName" class="control-label"></label>
+                <input asp-for="ShoppingList.ShopName" class="form-control" />
+                <span asp-validation-for="ShoppingList.ShopName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShoppingList.DueDate" class="control-label"></label>
+                <input asp-for="ShoppingList.DueDate" class="form-control" />
+                <span asp-validation-for="ShoppingList.DueDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <br />
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
