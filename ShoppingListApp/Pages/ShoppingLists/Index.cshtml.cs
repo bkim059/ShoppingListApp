@@ -31,28 +31,44 @@ namespace ShoppingListApp.Pages.ShoppingLists
 
         [BindProperty(SupportsGet = true)]
         public string? SearchShop { get; set; }
-        
+
+        [BindProperty(SupportsGet = true)]
+        public string SortField { get; set; } = "ItemName";
+
         public async Task OnGetAsync()
         {            
             IQueryable<string> shopQuery = from shop in _context.ShoppingList
                                            orderby shop.ShopName
                                            select shop.ShopName;
             
-            var itemNames = from i in _context.ShoppingList
-                            select i;
+            var shopLists = from s in _context.ShoppingList
+                            select s;
 
             if (!string.IsNullOrEmpty(SearchItem))
             {
-                itemNames = itemNames.Where(i => i.ItemName.Contains(SearchItem));
+                shopLists = shopLists.Where(s => s.ItemName.Contains(SearchItem));
             }
 
             if (!string.IsNullOrEmpty(SearchShop))
             {
-                itemNames = itemNames.Where(s => s.ShopName == SearchShop);
+                shopLists = shopLists.Where(s => s.ShopName == SearchShop);
+            }
+
+            switch (SortField)
+            {
+                case "ItemName":
+                    shopLists = shopLists.OrderBy(s => s.ItemName);
+                    break;
+                case "ShopName":
+                    shopLists = shopLists.OrderBy(s => s.ShopName);
+                    break;
+                case "DueDate":
+                    shopLists = shopLists.OrderBy(s => s.DueDate);
+                    break;
             }
 
             ShopNames = new SelectList(await shopQuery.Distinct().ToListAsync());
-            ShoppingList = await itemNames.ToListAsync();
+            ShoppingList = await shopLists.ToListAsync();
         }
     }
 }

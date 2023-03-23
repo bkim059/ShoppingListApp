@@ -13,11 +13,28 @@
 
 <form>
     <p>
+        Search: 
         <select asp-for="SearchShop" asp-items="Model.ShopNames">
             <option value="">All</option>
         </select>
-        Item Name: <input type="text" asp-for="SearchItem" />
+            Item Name: 
+        <input type="text" asp-for="SearchItem" />
         <input type="submit" value="Filter" />
+        <br />
+        <label asp-for="SortField" class="control-label">
+            Sort by:
+        </label>
+        <select asp-for="SortField" onchange="this.form.submit();">
+            <option value="ItemName">
+                Item Name
+            </option>
+            <option value="ShopName">
+                Shop Name
+            </option>
+            <option value="DueDate">
+                Due Date
+            </option>
+        </select>
     </p>
 </form>
 
